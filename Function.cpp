@@ -1,4 +1,4 @@
-#include "WorldTransform.h"
+#include "worldtransform.h"
 #include "Function.h"
 #include <math.h>
 
@@ -59,7 +59,6 @@ Matrix4 CreateMatRotationX(Vector3 rotation) {
 
 	return mat;
 }
-
 
 
 /// <summary>

@@ -1,5 +1,4 @@
-#include "WorldTransform.h"
-
+#include "worldtransform.h"
 /// <summary>
 /// ’PˆÊs—ñì¬
 /// </summary>
@@ -26,7 +25,6 @@ Matrix4 CreateMatRotationZ(Vector3 rotation);
 /// <param name="rotation">WorldTransform‚Ìrotation_</param>
 /// <returns>X²‚Ì‰ñ“]s—ñ</returns>
 Matrix4 CreateMatRotationX(Vector3 rotation);
-
 
 
 /// <summary>

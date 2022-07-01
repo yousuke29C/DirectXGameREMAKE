@@ -11,6 +11,7 @@
 #include "WorldTransform.h"
 #include "DebugCamera.h"
 #include "AxisIndicator.h"
+#include "Player.h"
 
 /// <summary>
 /// ゲームシーン
@@ -26,8 +27,8 @@ public: // メンバ関数
 	//3Dモデル
 	Model* model_ = nullptr;
 
-	//ワールドトランスフォーム
-	WorldTransform worldTransforms_[100];
+	//自キャラ
+	Player* player_ = nullptr;
 
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
