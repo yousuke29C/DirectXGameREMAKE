@@ -42,6 +42,16 @@ void Player::Update()
 	if (input_->PushKey(DIK_DOWN)) {
 		move.y -= kCharacterSpeed;
 	}
+	//キャラクター旋回処理
+	//押した方向で移動ベクトルを変更
+	const float kCharacterRootSpeed = 0.2f;
+
+	if (input_->PushKey(DIK_U)) {
+		worldtransform_.rotation_.y -= kCharacterRootSpeed;
+	}
+	else if (input_->PushKey(DIK_I)) {
+		worldtransform_.rotation_.y += kCharacterRootSpeed;
+	}
 
 	//キーボード入力による移動処理
 	const float kMoveLimitX = 35;
@@ -65,10 +75,31 @@ void Player::Update()
 	worldtransform_.matWorld_ *= CreateMatTranslation(worldtransform_.translation_);
 	worldtransform_.TransferMatrix();
 
+	Attack();
+
+	if (bullet_) {
+		bullet_->Update();
+	}
 }
 
 void Player::Draw(ViewProjection viewProjection_)
 {
 	model_->Draw(worldtransform_, viewProjection_, textureHandle_);
 
+	//弾の描画
+	if (bullet_) {
+		bullet_->Draw(viewProjection_);
+	}
+}
+
+void Player::Attack()
+{
+	if (input_->PushKey(DIK_SPACE)) {
+		//弾を生成し、初期化
+		PlayerBullet* newBullet = new PlayerBullet();
+		newBullet->Initialize(model_, worldtransform_.translation_);
+
+		//弾を登録する
+		bullet_ = newBullet;
+	}
 }
