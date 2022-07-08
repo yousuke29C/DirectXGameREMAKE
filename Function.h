@@ -41,3 +41,5 @@ Matrix4 CreateMatRotationY(Vector3 rotation);
 /// <param name="translation">WorldTransform‚ÌTranslation_</param>
 /// <returns>•½sˆÚ“®</returns>
 Matrix4 CreateMatTranslation(Vector3 translation);
+
+Vector3 bvector(Vector3& velocity, WorldTransform& worldTransform);
