@@ -77,6 +77,12 @@ void GameScene::Initialize() {
 	//自キャラの初期化
 	player_->Initialize(model_, textureHandle_);
 
+	//敵の生成
+	enemy_ = new Enemy();
+
+	//自キャラの初期化
+	enemy_->Initialize(model_, textureHandle_);
+
 }
 
 void GameScene::Update() {
@@ -97,6 +103,9 @@ void GameScene::Update() {
 
 	//自キャラの更新
 	player_->Update();
+
+	//敵の更新
+	enemy_->Update();
 }
 
 void GameScene::Draw() {
@@ -130,6 +139,8 @@ void GameScene::Draw() {
 
 	//自キャラの描画
 	player_->Draw(viewProjection_);
+	//敵の描画
+	enemy_->Draw(viewProjection_);
 	////3Dモデル
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();

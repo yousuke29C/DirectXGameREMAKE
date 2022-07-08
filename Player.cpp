@@ -1,7 +1,6 @@
 #include "Player.h"
 #include "Function.h"
 #include <cassert>
-#include"Function.h"
 
 /// <summary>
 /// ‰Šú‰»
