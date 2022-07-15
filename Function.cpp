@@ -112,3 +112,4 @@ Vector3 bvector(Vector3& velocity, WorldTransform& worldTransform) {
 
 	return result;
 }
+

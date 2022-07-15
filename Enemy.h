@@ -14,7 +14,7 @@ class Enemy {
 		/// </summary>
 		/// <param name="model">モデル</param>
 		/// <param name="textureHandle">テクスチャハンドル</param>
-		void Initialize(Model* model, uint32_t textureHandle);
+		void Initialize(Model* model, uint32_t textureHandle2);
 
 		/// <summary>
 		///更新
@@ -38,7 +38,7 @@ class Enemy {
 		//モデル
 		Model* model_ = nullptr;
 		//テクスチャハンドル
-		uint32_t textureHandle_ = 0u;
+		uint32_t textureHandle2_ = 0u;
 
 		Input* input_ = nullptr;
 
@@ -46,4 +46,8 @@ class Enemy {
 
 		//フェーズ
 		Phase phase_ = Phase::Approach;
+
+		void AccessPhaseUpdate();
+
+		void EliminationPhaseUpdate();
 };
