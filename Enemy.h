@@ -50,6 +50,9 @@ class Enemy {
 
 		//フェーズ
 		Phase phase_ = Phase::Approach;
+		void AccessPhaseUpdate();
+
+		void EliminationPhaseUpdate();
 		//弾
-		std::list<std::unique_ptr<PlayerBullet>> bullets_;
+		std::list<std::unique_ptr<EnemyBullet>> bullets_;
 };
