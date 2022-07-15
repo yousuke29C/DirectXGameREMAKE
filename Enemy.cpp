@@ -1,14 +1,15 @@
 #include "Enemy.h"
 #include <cassert>
 #include "Function.h"
+#include"EnemyBullet.h"
 
-void Enemy::Initialize(Model* model, uint32_t textureHandle)
+void Enemy::Initialize(Model* model, uint32_t textureHandle2)
 {
 	//NULLポインタチェック
 	assert(model);
 
 	model_ = model;
-	textureHandle_ = textureHandle;
+	textureHandle2_ = textureHandle2;
 
 	//シングルトンインスタンスを取得する
 	input_ = Input::GetInstance();
@@ -18,7 +19,14 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle)
 }
 
 void Enemy::Update()
+
+
 {
+	//デスフラグの立った弾を削除
+	bullets_.remove_if([](std::unique_ptr<EnemyBullet>& bullet) {
+		return bullet->IsDead();
+		});
+
 	Vector3 move = { 0,0,0 };
 	Vector3 move2 = { 0,0,0 };
 
@@ -55,10 +63,27 @@ void Enemy::Update()
 			worldtransform_.translation_ -= move2;
 			break;
 	}
+	Fire();
+	//弾更新
+	for (std::unique_ptr<EnemyBullet>& bullet : bullets_) {
+		bullet->Update();
+	}
+}
+void Enemy::Fire() {
+	//弾の速度
+	const float kBulletSpeed = 1.0f;
+	Vector3 velocity(0, 0, kBulletSpeed);
+	//速度ベクトルを自機の向きに合わせて回転させる
+	velocity = bvector(velocity, worldtransform_);
+	//弾を生成し、初期化
+	std::unique_ptr<EnemyBullet> newBullet = std::make_unique<EnemyBullet>();
+	newBullet->Initialize(model_, worldtransform_.translation_, velocity);
 
+	//弾を登録する
+	bullets_.push_back(std::move(newBullet));
 }
 
 void Enemy::Draw(ViewProjection viewProjection_)
 {
-	model_->Draw(worldtransform_, viewProjection_, textureHandle_);
+	model_->Draw(worldtransform_, viewProjection_, textureHandle2_);
 }
