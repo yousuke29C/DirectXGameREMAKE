@@ -31,10 +31,6 @@ class Enemy {
 			Approach, //接近する
 			Leave, //離脱する
 		};
-		/// <summary>
-		///弾発射
-		/// </summary>
-		void Fire();
 
 	private:
 		//ワールド変換データ
@@ -50,9 +46,8 @@ class Enemy {
 
 		//フェーズ
 		Phase phase_ = Phase::Approach;
+
 		void AccessPhaseUpdate();
 
 		void EliminationPhaseUpdate();
-		//弾
-		std::list<std::unique_ptr<EnemyBullet>> bullets_;
 };
