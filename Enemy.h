@@ -8,6 +8,12 @@
 #include <memory>
 #include <list>
 
+//自機クラスの前方宣言
+class Player;
+
+//自キャラ
+Player* player_ = nullptr;
+
 class Enemy
 {
 public:
@@ -46,6 +52,10 @@ public:
 	// 接近フェーズの初期化
 	void ApproachInitialize();
 
+	void SetPlayer(Player* player) { player_ = player; }
+
+	//ワールド座標を取得
+	Vector3 GetWorldPosition();
 private:
 	// ワールド変換データ
 	WorldTransform worldTransform_;

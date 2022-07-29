@@ -37,6 +37,9 @@ public:
 	/// </summary>
 	void Attack();
 
+	//ワールド座標を取得
+	Vector3 GetWorldPosition();
+
 private:
 	//ワールド変換データ
 	WorldTransform worldtransform_;
@@ -51,5 +54,6 @@ private:
 
 	//弾
 	std::list<std::unique_ptr<PlayerBullet>> bullets_;
+
 
 };
