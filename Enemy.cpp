@@ -10,15 +10,24 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle) {
     model_ = model;
     textureHandle_ = textureHandle;
 
+    worldTransform_.rotation_ = { 0, 3.0f, 0 };
+
     // シングルトンインスタンスを取得する
     input_ = Input::GetInstance();
     debugText_ = DebugText::GetInstance();
 
     // ワールド変換の初期化
     worldTransform_.Initialize();
+
+    // 接近フェーズの初期化
+    ApproachInitialize();
 }
 
 void Enemy::Update() {
+    // デスフラグの立った弾を削除
+    bullets_.remove_if([](std::unique_ptr<EnemyBullet>& bullet) {
+        return bullet->IsDead();
+        });
 
     // キャラクターの移動ベクトル
     Vector3 move = { 0,0,0 };
@@ -49,9 +58,6 @@ void Enemy::Update() {
         EliminationPhaseUpdate();
         break;
     }
-
-    // 敵の攻撃処理
-    Fire();
 
     // 弾更新
     for (std::unique_ptr<EnemyBullet>& bullet : bullets_) {
@@ -95,6 +101,21 @@ void Enemy::AccessPhaseUpdate() {
     if (worldTransform_.translation_.z < -10.0f) {
         phase_ = Enemy::Phase::Leave;
     }
+    // 発射タイマーカウントダウン
+    fireTimer--;
+    // 指定時間に達した
+    if (fireTimer <= 0) {
+        // 弾を発射
+        Fire();
+        // 発射タイマーを初期化
+        fireTimer = kFireInterval;
+    }
+}
+
+// 接近フェーズの初期化
+void Enemy::ApproachInitialize() {
+    // 発射タイマーを初期化
+    fireTimer = kFireInterval;
 }
 
 // 離脱フェーズの更新

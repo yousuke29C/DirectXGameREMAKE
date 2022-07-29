@@ -40,6 +40,12 @@ public:
 		Leave,    // 離脱する
 	};
 
+	// 発射間隔
+	static const int kFireInterval = 60;
+
+	// 接近フェーズの初期化
+	void ApproachInitialize();
+
 private:
 	// ワールド変換データ
 	WorldTransform worldTransform_;
@@ -59,4 +65,6 @@ private:
 	void AccessPhaseUpdate();
 	// 離脱フェーズの更新
 	void EliminationPhaseUpdate();
+	// 発射タイマー
+	int32_t fireTimer = 0;
 };
