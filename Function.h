@@ -43,3 +43,8 @@ Matrix4 CreateMatRotationY(Vector3 rotation);
 Matrix4 CreateMatTranslation(Vector3 translation);
 
 Vector3 bvector(Vector3& velocity, WorldTransform& worldTransform);
+
+// 速度ベクトルを自機の向きに合わせて回転させる
+Vector3 CreateVector(Vector3 velocity, WorldTransform& worldTransform);
+
+void CreateMatrixUpdate(WorldTransform& worldTransform_);

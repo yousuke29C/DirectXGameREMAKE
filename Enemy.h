@@ -1,53 +1,62 @@
-#include <3d/Model.h>
-#include <input.h>
-#include <DebugText.h>
+#pragma once
 
+#include "WorldTransform.h"
+#include "Model.h"
+#include "Input.h"
+#include "DebugText.h"
+#include "EnemyBullet.h"
+#include <memory>
+#include <list>
 
-///<summary>
-///敵
-/// </summary>
-class Enemy {
+class Enemy
+{
+public:
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	/// <param name = "model">モデル</param>
+	/// <param mame = "textureHandle">テクスチャハンドル</param>
+	void Initialize(Model* model, uint32_t textureHandle);
 
-	public:
-		/// <summary>
-		///初期化
-		/// </summary>
-		/// <param name="model">モデル</param>
-		/// <param name="textureHandle">テクスチャハンドル</param>
-		void Initialize(Model* model, uint32_t textureHandle2);
+	/// <summary>
+	/// 更新
+	/// </summary>
+	void Update();
 
-		/// <summary>
-		///更新
-		/// </summary>
-		void Update();
+	/// <summary>
+	/// 描画
+	/// </summary>
+	/// <param name="viewProjectione">ビュープロジェクション（参照渡し）</param>
+	void Draw(ViewProjection viewProjection_);
 
-		/// <summary>
-		///描画
-		/// </summary>
-		void Draw(ViewProjection viewProjection_);
+	/// <summary>
+	/// 弾の発射
+	/// </summary>
+	void Fire();
 
-		//行動フェーズ
-		enum class Phase {
-			Approach, //接近する
-			Leave, //離脱する
-		};
+	// 行動フェーズ
+	enum class Phase {
+		Approach, // 接近する
+		Leave,    // 離脱する
+	};
 
-	private:
-		//ワールド変換データ
-		WorldTransform worldtransform_;
-		//モデル
-		Model* model_ = nullptr;
-		//テクスチャハンドル
-		uint32_t textureHandle2_ = 0u;
-
-		Input* input_ = nullptr;
-
-		DebugText* debugText_ = nullptr;
-
-		//フェーズ
-		Phase phase_ = Phase::Approach;
-
-		void AccessPhaseUpdate();
-
-		void EliminationPhaseUpdate();
+private:
+	// ワールド変換データ
+	WorldTransform worldTransform_;
+	// モデル
+	Model* model_ = nullptr;
+	// テクスチャハンドル
+	uint32_t textureHandle_ = 0u;
+	// 入力処理するため
+	Input* input_ = nullptr;
+	// デバックテキスト
+	DebugText* debugText_ = nullptr;
+	// フェーズ
+	Phase phase_ = Phase::Approach;
+	// 弾
+	std::list<std::unique_ptr<EnemyBullet>> bullets_;
+	// 接近フェーズの更新
+	void AccessPhaseUpdate();
+	// 離脱フェーズの更新
+	void EliminationPhaseUpdate();
 };

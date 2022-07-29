@@ -112,3 +112,27 @@ Vector3 bvector(Vector3& velocity, WorldTransform& worldTransform) {
 
 	return result;
 }
+
+// 速度ベクトルを自機の向きに合わせて回転させる
+Vector3 CreateVector(Vector3 velocity, WorldTransform& worldTransform) {
+	Vector3 dirVector;
+	dirVector.x = velocity.x * worldTransform.matWorld_.m[0][0] + velocity.y * worldTransform.matWorld_.m[1][0] + velocity.z * worldTransform.matWorld_.m[2][0];
+	dirVector.y = velocity.x * worldTransform.matWorld_.m[0][1] + velocity.y * worldTransform.matWorld_.m[1][1] + velocity.z * worldTransform.matWorld_.m[2][1];
+	dirVector.z = velocity.x * worldTransform.matWorld_.m[0][2] + velocity.y * worldTransform.matWorld_.m[1][2] + velocity.z * worldTransform.matWorld_.m[2][2];
+	return dirVector;
+}
+
+// 行列更新
+void CreateMatrixUpdate(WorldTransform& worldTransform) {
+
+	//スケーリング・回転・平行移動を合成した行列を計算
+	worldTransform.matWorld_ = CreateMatIdentity();
+	worldTransform.matWorld_ *= CreateMatScale(worldTransform.scale_); // スケーリング行列作成
+	worldTransform.matWorld_ *= CreateMatRotationZ(worldTransform.rotation_);
+	worldTransform.matWorld_ *= CreateMatRotationY(worldTransform.rotation_);
+	worldTransform.matWorld_ *= CreateMatRotationX(worldTransform.rotation_);
+	worldTransform.matWorld_ *= CreateMatTranslation(worldTransform.translation_);
+
+	//行列の転送
+	worldTransform.TransferMatrix();
+}
