@@ -70,8 +70,16 @@ void Player::Update() {
     worldTransform_.matWorld_ *= CreateMatTranslation(worldTransform_.translation_);
     worldTransform_.TransferMatrix();
 
-    // キャラクターの旋回処理
-    Rotate(worldTransform_, input_);
+    //キャラクター旋回処理
+     //押した方向で移動ベクトルを変更
+    const float kCharacterRootSpeed = 0.02f;
+
+    if (input_->PushKey(DIK_U)) {
+        worldTransform_.rotation_.y -= kCharacterRootSpeed;
+    }
+    else if (input_->PushKey(DIK_I)) {
+        worldTransform_.rotation_.y += kCharacterRootSpeed;
+    }
 
     // キャラクター攻撃処理
     Attack();
@@ -121,4 +129,9 @@ Vector3  Player::GetWorldPosition() {
     worldPos.z = worldTransform_.matWorld_.m[3][2];
     return worldPos;
 }
-float PlayerBullet::GetRadius() { return radius_; }
+
+// 衝突を検出したら呼び出されるコールバック関数
+void Player::OnCollision(){}
+
+float Player::GetRadius() { return radius_; }
+

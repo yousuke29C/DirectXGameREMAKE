@@ -164,4 +164,6 @@ Vector3 Enemy::GetWorldPosition() {
     worldPos.z = worldTransform_.matWorld_.m[3][2];
     return worldPos;
 }
+// 衝突を検出したら呼び出されるコールバック関数
+void Enemy::OnCollision() {}
 float Enemy::GetRadius() { return radius_; }

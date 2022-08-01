@@ -1,4 +1,5 @@
 #include "worldtransform.h"
+#include <cmath>
 /// <summary>
 /// íPà çsóÒçÏê¨
 /// </summary>
@@ -48,3 +49,9 @@ Vector3 bvector(Vector3& velocity, WorldTransform& worldTransform);
 Vector3 CreateVector(Vector3 velocity, WorldTransform& worldTransform);
 
 void CreateMatrixUpdate(WorldTransform& worldTransform_);
+
+Vector3 Vector3sub(Vector3& v1, Vector3& v2);
+
+Vector3 Normalize(Vector3& vec);
+
+float length(Vector3& vec);
