@@ -33,10 +33,10 @@ void GameScene::CheckAllCollisions() {
 		// 敵弾の座標
 		posA = bulletB->GetWorldPosition();
 		//AとBの距離を求める
-		Vector3 len = MyMath::Vector3sub(posA, posB);
-		float distance = MyMath::length(len);
+		Vector3 len = Vector3sub(posA, posB);
+		float distance = length(len);
 		//半径
-		float radius = bulletB->GetRadius() + bulletA->GetRadius()
+		float radius = bulletB->GetRadius() + bulletA->GetRadius();
 		// 自弾と敵弾の交差判定
 		if (distance <= radius) {
 			// 自キャラの衝突時コールバックを呼び出す
@@ -58,8 +58,8 @@ void GameScene::CheckAllCollisions() {
 		posB = enemyBullet_->GetWorldPosition();
 
 		//AとBの距離を求める
-		Vector3 len = MyMath::Vector3sub(posA, posB);
-		float distance = MyMath::length(len);
+		Vector3 len = Vector3sub(posA, posB);
+		float distance = length(len);
 		//半径
 		float radius = player_->GetRadius();
 		// 球と球の交差判定
@@ -82,8 +82,8 @@ void GameScene::CheckAllCollisions() {
 		posB = playerBullet_->GetWorldPosition();
 
 		//AとBの距離を求める
-		Vector3 len = MyMath::Vector3sub(posA, posB);
-		float distance = MyMath::length(len);
+		Vector3 len = Vector3sub(posA, posB);
+		float distance = length(len);
 		//半径
 		float radius = enemy_->GetRadius();
 		// 球と球の交差判定

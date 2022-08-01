@@ -49,3 +49,4 @@ Vector3  EnemyBullet::GetWorldPosition() {
 	worldPos.z = worldTransform_.matWorld_.m[3][2];
 	return worldPos;
 }
+float EnemyBullet::GetRadius() { return radius_; }

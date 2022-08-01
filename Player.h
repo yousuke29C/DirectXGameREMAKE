@@ -46,6 +46,7 @@ public:
 
 	// 弾リストを取得
 	const std::list < std::unique_ptr<PlayerBullet>>& GetBullets() { return bullets_; }
+	float GetRadius();
 
 private:
 	// ワールド変換データ
@@ -60,4 +61,5 @@ private:
 	DebugText* debugText_ = nullptr;
 	// 弾
 	std::list<std::unique_ptr<PlayerBullet>> bullets_;
+	const float radius_ = 1.0f;
 };

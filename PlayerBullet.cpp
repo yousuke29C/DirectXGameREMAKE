@@ -49,3 +49,4 @@ Vector3  PlayerBullet::GetWorldPosition() {
 	worldPos.z = worldTransform_.matWorld_.m[3][2];
 	return worldPos;
 }
+float PlayerBullet::GetRadius() { return radius_; }

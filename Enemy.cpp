@@ -164,3 +164,4 @@ Vector3 Enemy::GetWorldPosition() {
     worldPos.z = worldTransform_.matWorld_.m[3][2];
     return worldPos;
 }
+float Enemy::GetRadius() { return radius_; }
