@@ -77,7 +77,6 @@ private:
 	void EliminationPhaseUpdate();
 	// 発射タイマー
 	int32_t fireTimer = 0;
-
 	//自キャラ
 	Player* player_ = nullptr;
 };
