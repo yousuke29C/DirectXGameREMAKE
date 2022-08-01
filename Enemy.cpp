@@ -10,7 +10,11 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle) {
     model_ = model;
     textureHandle_ = textureHandle;
 
-    worldTransform_.rotation_ = { 0, 3.0f, 0 };
+    // 敵キャラの回転
+    worldTransform_.rotation_ = { 0, 0, 0 };
+
+    // 敵キャラの位置
+    worldTransform_.translation_ = { 0,0,40 };
 
     // シングルトンインスタンスを取得する
     input_ = Input::GetInstance();
@@ -75,8 +79,8 @@ void Enemy::Draw(ViewProjection viewProjection_) {
 }
 
 void Enemy::Fire() {
-
     assert(player_);
+
     // 弾の速度
     const float kBulletSpeed = 1.0f;
     Vector3 velocity(0, 0, kBulletSpeed);
@@ -105,20 +109,21 @@ void Enemy::Fire() {
 
     // 球を登録する
     bullets_.push_back(std::move(newBullet));
-
-
 }
 
 // 接近フェーズの更新
 void Enemy::AccessPhaseUpdate() {
     // 移動 (ベクトルを加算)
     worldTransform_.translation_ -= {0.0, 0.0, 0.05};
+
     //規定の位置に到達したら離脱
-    if (worldTransform_.translation_.z < -10.0f) {
+    if (worldTransform_.translation_.z < 0.0f) {
         phase_ = Enemy::Phase::Leave;
     }
+
     // 発射タイマーカウントダウン
     fireTimer--;
+
     // 指定時間に達した
     if (fireTimer <= 0) {
         // 弾を発射
@@ -139,7 +144,8 @@ void Enemy::EliminationPhaseUpdate() {
     // 移動（ベクトルを加算）
     worldTransform_.translation_ += {0.05, 0.05, 0};
 }
-Vector3  Enemy::GetWorldPosition() {
+
+Vector3 Enemy::GetWorldPosition() {
     //ワールド座標を入れる変数
     Vector3 worldPos;
     //ワールド行列の平行移動成分を取得(ワールド座標)

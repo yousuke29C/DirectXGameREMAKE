@@ -15,6 +15,87 @@ float Degree(const float& degree) {
 	float n = degree * PI / 180;
 	return n;
 }
+void GameScene::CheckAllCollisions() {
+	// 判定対象AとBの座標
+	Vector3 posA, posB;
+
+	// 自弾リストの取得
+	const std::list<std::unique_ptr<PlayerBullet>>& playerBullets = player_->GetBullets();
+	// 敵弾リストの取得
+	const std::list<std::unique_ptr<EnemyBullet>>& enemyBullets = enemy_->GetBullets();
+
+#pragma region 自弾と敵弾の当たり判定
+	// 自キャラと敵弾全ての当たり判定
+	for (const std::unique_ptr<PlayerBullet>& bulletA : playerBullets) {
+		for (const std::unique_ptr<EnemyBullet>& bulletB : enemyBullets) {
+		// 自弾の座標
+		posB = bulletA ->GetWorldPosition();
+		// 敵弾の座標
+		posA = bulletB->GetWorldPosition();
+		//AとBの距離を求める
+		Vector3 len = MyMath::Vector3sub(posA, posB);
+		float distance = MyMath::length(len);
+		//半径
+		float radius = bulletB->GetRadius() + bulletA->GetRadius()
+		// 自弾と敵弾の交差判定
+		if (distance <= radius) {
+			// 自キャラの衝突時コールバックを呼び出す
+			bulletB->OnCollision();
+			// 敵弾のの衝突時コールバックを呼び出す
+			bulletA->OnCollision();
+		}
+	}
+}
+#pragma endregion
+
+#pragma region 自キャラと敵弾の当たり判定
+	// 自キャラの座標
+	posA = player_->GetWorldPosition();
+
+	// 自キャラと敵弾全ての当たり判定
+	for (const std::unique_ptr<EnemyBullet>& bullet : enemyBullets) {
+		// 敵弾の座標
+		posB = enemyBullet_->GetWorldPosition();
+
+		//AとBの距離を求める
+		Vector3 len = MyMath::Vector3sub(posA, posB);
+		float distance = MyMath::length(len);
+		//半径
+		float radius = player_->GetRadius();
+		// 球と球の交差判定
+		if (distance <= radius) {
+			// 自キャラの衝突時コールバックを呼び出す
+			player_->OnCollision();
+			// 敵弾のの衝突時コールバックを呼び出す
+			bullet->OnCollision();
+		}
+	}
+#pragma endregion
+
+#pragma region 自キャラと敵弾の当たり判定
+	// 自キャラの座標
+	posA = player_->GetWorldPosition();
+
+	// 自キャラと敵弾全ての当たり判定
+	for (const std::unique_ptr<PlayerBullet>& bullet : playerBullets) {
+		// 敵弾の座標
+		posB = playerBullet_->GetWorldPosition();
+
+		//AとBの距離を求める
+		Vector3 len = MyMath::Vector3sub(posA, posB);
+		float distance = MyMath::length(len);
+		//半径
+		float radius = enemy_->GetRadius();
+		// 球と球の交差判定
+		if (distance <= radius) {
+			// 敵キャラの衝突時コールバックを呼び出す
+			enemy_->OnCollision();
+			// 自弾のの衝突時コールバックを呼び出す
+			bullet->OnCollision();
+		}
+	}
+#pragma endregion
+}
 
 //乱数シード生成器
 std::random_device seed_gen;

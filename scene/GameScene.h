@@ -13,6 +13,8 @@
 #include "AxisIndicator.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "EnemyBullet.h"
+
 
 /// <summary>
 /// ゲームシーン
@@ -25,33 +27,23 @@ public: // メンバ関数
   /// </summary>
 	GameScene();
 
-	//3Dモデル
-	Model* model_ = nullptr;
-
-	//自キャラ
-	Player* player_ = nullptr;
-
-	//敵
-	Enemy* enemy_ = nullptr;
-
-	//ビュープロジェクション
-	ViewProjection viewProjection_;
+	//ワールドトランスフォーム
+	/*WorldTransform worldTransforms_[100];*/
 
 	//カメラ上方向の角度
 	float viewAngle = 4.0f;
 
-public:
 	//パーツID
 	enum Partid {
-		kRoot,
-		kSpine,
-		kChest,
-		kHead,
-		kArmL,
-		kArmR,
-		kHip,
-		kLegL,
-		kLegR,
+		kRoot,    // 大本
+		kSpine,	  // 脊髄
+		kChest,	  // 胸
+		kHead,	  // 頭
+		kArmL,	  // 左腕
+		kArmR,	  // 右腕
+		kHip,	  // 尻
+		kLegL,	  // 左足
+		kLegR,	  // 右足
 
 		kNumPartid
 	};
@@ -75,6 +67,11 @@ public:
 	/// </summary>
 	void Draw();
 
+	/// <summary>
+	/// 衝突判定と応答
+	/// </summary>
+	void CheckAllCollisions();
+
 	float Angle(float angle);
 
 private: // メンバ変数
@@ -82,14 +79,23 @@ private: // メンバ変数
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 	DebugText* debugText_ = nullptr;
-
+	//3Dモデル
+	Model* model_ = nullptr;
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0;
 	uint32_t textureHandle2_ = 0;
-
+	// 自キャラ
+	Player* player_ = nullptr;
+	// 敵キャラ
+	Enemy* enemy_ = nullptr;
+	// 自弾
+	PlayerBullet* playerBullet_ = nullptr;
+	// 敵弾
+	EnemyBullet* enemyBullet_ = nullptr;
 	//デバックカメラ
 	DebugCamera* debugCamera_ = nullptr;
-
+	//ビュープロジェクション
+	ViewProjection viewProjection_;
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
