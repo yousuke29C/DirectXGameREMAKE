@@ -81,8 +81,20 @@ void Enemy::Fire() {
     const float kBulletSpeed = 1.0f;
     Vector3 velocity(0, 0, kBulletSpeed);
 
-    // 速度ベクトルを自機の向きに合わせて回転させる
-    velocity = CreateVector(velocity, worldTransform_);
+    // 自機キャラのワールド座標を取得
+    Vector3 playerPos = player_->GetWorldPosition();
+    // 敵キャラのワールド座標を取得
+    Vector3 enemyPos = this->GetWorldPosition();
+    // 敵キャラ→自キャラの差分ベクトルを求める
+    Vector3 vector = playerPos;
+    vector -= enemyPos;
+    float length = (float)std::sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z);
+    // ベクトルの正規化
+    if (length != 0) {
+        vector /= length;
+    }
+    // ベクトルの長さを、速さに合わせる
+    velocity = vector;
 
     // 自キャラの座標をコピー
     Vector3 position = worldTransform_.translation_;

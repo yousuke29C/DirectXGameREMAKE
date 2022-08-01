@@ -7,12 +7,12 @@
 #include "EnemyBullet.h"
 #include <memory>
 #include <list>
+#include "Player.h"
 
 //自機クラスの前方宣言
 class Player;
 
-//自キャラ
-Player* player_ = nullptr;
+
 
 class Enemy
 {
@@ -77,4 +77,6 @@ private:
 	void EliminationPhaseUpdate();
 	// 発射タイマー
 	int32_t fireTimer = 0;
+	//自キャラ
+	Player* player_ = nullptr;
 };
