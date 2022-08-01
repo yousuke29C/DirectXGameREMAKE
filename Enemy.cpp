@@ -116,10 +116,20 @@ void Enemy::AccessPhaseUpdate() {
 void Enemy::ApproachInitialize() {
     // 発射タイマーを初期化
     fireTimer = kFireInterval;
+
 }
 
 // 離脱フェーズの更新
 void Enemy::EliminationPhaseUpdate() {
     // 移動（ベクトルを加算）
     worldTransform_.translation_ += {0.05, 0.05, 0};
+    // 発射タイマーカウントダウン
+    fireTimer--;
+    // 指定時間に達した
+    if (fireTimer <= 0) {
+        // 弾を発射
+        Fire();
+        // 発射タイマーを初期化
+        fireTimer = kFireInterval;
+    }
 }
