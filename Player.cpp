@@ -131,7 +131,8 @@ Vector3  Player::GetWorldPosition() {
 }
 
 // 衝突を検出したら呼び出されるコールバック関数
-void Player::OnCollision(){}
+void Player::OnCollision() {}
 
 float Player::GetRadius() { return radius_; }
+
 

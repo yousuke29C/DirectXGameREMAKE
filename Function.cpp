@@ -97,7 +97,7 @@ Vector3 bvector(Vector3& velocity, WorldTransform& worldTransform) {
 
 	Vector3 result{ 0,0,0 };
 	//Š|‚¯ŽZ
-	
+
 	result.x = velocity.x * worldTransform.matWorld_.m[0][0] +
 		velocity.y * worldTransform.matWorld_.m[1][0] +
 		velocity.z * worldTransform.matWorld_.m[2][0];
