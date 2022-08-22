@@ -34,7 +34,7 @@ void RailCamera::Update()
 	//ワールド前方ベクトル
 	Vector3 forward(0, 0, 1);
 	//レールカメラの回転を反映
-	forward = MyMath::Math_(forward, worldTransform_.matWorld_);
+	forward = bvector(forward, worldTransform_.matWorld_);
 
 	//視点から前方に適当な距離進んだ
 	forward += viewProjection_.eye;
@@ -44,7 +44,7 @@ void RailCamera::Update()
 	Vector3 up(0, 1, 0);
 
 	//レールカメラの回転
-	viewProjection_.up = MyMath::Math_(up, worldTransform_.matWorld_);
+	viewProjection_.up = bvector(up, worldTransform_.matWorld_);
 
 	//ビュープロジェクション
 	viewProjection_.UpdateMatrix();

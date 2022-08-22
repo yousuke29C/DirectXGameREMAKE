@@ -13,7 +13,7 @@
 #include "AxisIndicator.h"
 #include "Player.h"
 #include "Enemy.h"
-
+#include "RailCamera.h"
 
 /// <summary>
 /// ゲームシーン
@@ -91,6 +91,7 @@ private: // メンバ変数
 	PlayerBullet* playerBullet_ = nullptr;
 	// 敵弾
 	EnemyBullet* enemyBullet_ = nullptr;
+	std::unique_ptr<RailCamera> railCamera_;
 	//デバックカメラ
 	DebugCamera* debugCamera_ = nullptr;
 	//ビュープロジェクション

@@ -9,6 +9,8 @@
 #include <memory>
 #include <list>
 
+class RailCamera;
+
 /// <summary>
 /// 自キャラ
 /// </summary>
@@ -48,6 +50,9 @@ public:
 	const std::list < std::unique_ptr<PlayerBullet>>& GetBullets() { return bullets_; }
 	float GetRadius();
 
+	void SetParent(WorldTransform* worldTransform) {
+		worldTransform_.parent_ = worldTransform;
+	}
 private:
 	// ワールド変換データ
 	WorldTransform worldTransform_;
@@ -62,4 +67,6 @@ private:
 	// 弾
 	std::list<std::unique_ptr<PlayerBullet>> bullets_;
 	const float radius_ = 1.0f;
+
+	RailCamera* camera_ = nullptr;
 };

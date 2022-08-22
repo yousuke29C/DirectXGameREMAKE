@@ -88,6 +88,14 @@ void GameScene::Initialize() {
 	//敵キャラに自キャラのアドレスを渡す
 	enemy_->SetPlayer(player_);
 
+	//レールカメラの生成
+	railCamera_ = std::make_unique<RailCamera>();
+	//レールカメラの生成
+	railCamera_->Initialize(Vector3(0.0f, 0.0f, -50.0f), Vector3(0.0f, 0.0f, 0.0f));
+
+	player_->SetParent(railCamera_->GetWorldMatrix());
+
+
 }
 
 void GameScene::Update() {
@@ -113,6 +121,8 @@ void GameScene::Update() {
 	enemy_->Update();
 
 	CheckAllCollisions();
+
+	railCamera_->Update();
 }
 
 void GameScene::Draw() {

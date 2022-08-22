@@ -93,22 +93,22 @@ Matrix4 CreateMatTranslation(Vector3 translation) {
 
 }
 
-Vector3 bvector(Vector3& velocity, WorldTransform& worldTransform) {
+Vector3 bvector(Vector3& velocity, Matrix4& mat) {
 
-	Vector3 result{ 0,0,0 };
+	Vector3 result;
 	//Š|‚¯ŽZ
 
-	result.x = velocity.x * worldTransform.matWorld_.m[0][0] +
-		velocity.y * worldTransform.matWorld_.m[1][0] +
-		velocity.z * worldTransform.matWorld_.m[2][0];
+	result.x = velocity.x * mat.m[0][0] +
+		velocity.y * mat.m[1][0] +
+		velocity.z * mat.m[2][0];
 
-	result.y = velocity.x * worldTransform.matWorld_.m[0][1] +
-		velocity.y * worldTransform.matWorld_.m[1][1] +
-		velocity.z * worldTransform.matWorld_.m[2][1];
+	result.y = velocity.x * mat.m[0][1] +
+		velocity.y * mat.m[1][1] +
+		velocity.z * mat.m[2][1];
 
-	result.z = velocity.x * worldTransform.matWorld_.m[0][2] +
-		velocity.y * worldTransform.matWorld_.m[1][2] +
-		velocity.z * worldTransform.matWorld_.m[2][2];
+	result.z = velocity.x * mat.m[0][2] +
+		velocity.y * mat.m[1][2] +
+		velocity.z * mat.m[2][2];
 
 	return result;
 }
