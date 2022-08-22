@@ -7,7 +7,6 @@
 #include "EnemyBullet.h"
 #include <memory>
 #include <list>
-#include "Player.h"
 
 //自機クラスの前方宣言
 class Player;
