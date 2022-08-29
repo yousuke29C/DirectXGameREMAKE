@@ -3,6 +3,8 @@
 #include "ViewProjection.h"
 #include "DebugText.h"
 #include "Function.h"
+#include "Input.h"
+#include <cassert>
 
 ///<summary>
 ///レールカメラ
@@ -33,4 +35,5 @@ private:
 	WorldTransform worldTransform_;
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
+	Input* input_ = nullptr;
 };

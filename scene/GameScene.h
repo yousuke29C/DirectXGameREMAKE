@@ -14,6 +14,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "RailCamera.h"
+#include "Skydome.h"
 
 /// <summary>
 /// ゲームシーン
@@ -73,6 +74,7 @@ public: // メンバ関数
 
 	float Angle(float angle);
 
+
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -96,6 +98,9 @@ private: // メンバ変数
 	DebugCamera* debugCamera_ = nullptr;
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
+	//天球
+	Skydome* skydome_ = nullptr;
+	Model* modelSkydome_ = nullptr;
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>

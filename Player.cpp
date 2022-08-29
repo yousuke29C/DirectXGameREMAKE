@@ -14,6 +14,8 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
     input_ = Input::GetInstance();
     debugText_ = DebugText::GetInstance();
 
+    worldTransform_.translation_.z = 50;
+
     // ワールド変換の初期化
     worldTransform_.Initialize();
 
@@ -54,13 +56,14 @@ void Player::Update() {
     const float kMoveLimitX = 35;
     const float kMoveLimitY = 19;
 
+    
+
     // 範囲を超えない処理worldTrandform_.translation_値に制限をかける
     worldTransform_.translation_.x = max(worldTransform_.translation_.x, -kMoveLimitX);
     worldTransform_.translation_.x = min(worldTransform_.translation_.x, +kMoveLimitX);
     worldTransform_.translation_.y = max(worldTransform_.translation_.y, -kMoveLimitY);
     worldTransform_.translation_.y = min(worldTransform_.translation_.y, +kMoveLimitY);
     worldTransform_.translation_ += move;
-
     // 行列更新
     worldTransform_.matWorld_ = CreateMatIdentity();
     worldTransform_.matWorld_ *= CreateMatScale(worldTransform_.scale_);
@@ -68,6 +71,9 @@ void Player::Update() {
     worldTransform_.matWorld_ *= CreateMatRotationY(worldTransform_.rotation_);
     worldTransform_.matWorld_ *= CreateMatRotationZ(worldTransform_.rotation_);
     worldTransform_.matWorld_ *= CreateMatTranslation(worldTransform_.translation_);
+
+    worldTransform_.matWorld_ *= worldTransform_.parent_->matWorld_;
+
     worldTransform_.TransferMatrix();
 
     //キャラクター旋回処理
@@ -88,6 +94,10 @@ void Player::Update() {
     for (std::unique_ptr<PlayerBullet>& bullet : bullets_) {
         bullet->Update();
     }
+
+    debugText_->SetPos(20, 50);
+    debugText_->Printf("Player:(%f,%f,%f)", worldTransform_.translation_.x, worldTransform_.translation_.y, worldTransform_.translation_.z);
+
 }
 
 void Player::Draw(ViewProjection viewProjection_) {

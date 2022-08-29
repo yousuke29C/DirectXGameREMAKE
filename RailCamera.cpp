@@ -2,9 +2,11 @@
 
 void RailCamera::Initialize(const Vector3& position, const Vector3& rotation)
 {
+	input_ = Input::GetInstance();
 	//ワールドトランスフォームの初期設定
 	worldTransform_.translation_ = position;
 	worldTransform_.rotation_ = rotation;
+	/*worldTransform_.scale_ = { 1,1,1 };*/
 	//ビュープロジェクションの初期化
 	viewProjection_.farZ = 2000.0f;
 	viewProjection_.Initialize();
@@ -15,10 +17,10 @@ void RailCamera::Initialize(const Vector3& position, const Vector3& rotation)
 void RailCamera::Update()
 {
 	//移動
-	worldTransform_.translation_ += Vector3(0, 0, 0.1f);
+	worldTransform_.translation_ += Vector3(0, 0, 0.01f);
 	//ワールドトランスフォームを更新
 	worldTransform_.matWorld_ = CreateMatIdentity();
-	worldTransform_.matWorld_ *= CreateMatScale(worldTransform_.rotation_);
+	worldTransform_.matWorld_ *= CreateMatScale(worldTransform_.scale_);
 	worldTransform_.matWorld_ *= CreateMatRotationX(worldTransform_.rotation_);
 	worldTransform_.matWorld_ *= CreateMatRotationY(worldTransform_.rotation_);
 	worldTransform_.matWorld_ *= CreateMatRotationZ(worldTransform_.rotation_);

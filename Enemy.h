@@ -61,6 +61,7 @@ public:
 
 	const std::list < std::unique_ptr<EnemyBullet>>& GetBullets() { return bullets_; }
 	float GetRadius();
+
 private:
 	// ワールド変換データ
 	WorldTransform worldTransform_;
@@ -85,4 +86,7 @@ private:
 	//自キャラ
 	Player* player_ = nullptr;
 	const float radius_ = 1.0f;
+	//デスフラグ
+	bool isDead_ = false;
+
 };

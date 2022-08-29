@@ -42,6 +42,7 @@ GameScene::~GameScene() {
 	delete model_;
 	delete debugCamera_;
 	delete player_;
+	delete modelSkydome_;
 }
 
 void GameScene::Initialize() {
@@ -88,19 +89,35 @@ void GameScene::Initialize() {
 	//敵キャラに自キャラのアドレスを渡す
 	enemy_->SetPlayer(player_);
 
+	//天球の生成
+	skydome_ = new Skydome();
+
+	skydome_->Initialize();
+
 	//レールカメラの生成
 	railCamera_ = std::make_unique<RailCamera>();
 	//レールカメラの生成
 	railCamera_->Initialize(Vector3(0.0f, 0.0f, -50.0f), Vector3(0.0f, 0.0f, 0.0f));
 
 	player_->SetParent(railCamera_->GetWorldMatrix());
-
-
 }
 
 void GameScene::Update() {
 	//デバックカメラの更新
-	debugCamera_->Update();
+	/*debugCamera_->Update();*/
+
+	//自キャラの更新
+	player_->Update();
+
+	//敵の更新
+	enemy_->Update();
+
+	railCamera_->Update();
+
+	//railCameraをゲームシーンの方に適応する
+	viewProjection_.matView = debugCamera_->GetViewProjection().matView;
+	viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
+	viewProjection_.TransferMatrix();
 
 	//キャラクター移動処理
 	{
@@ -114,15 +131,12 @@ void GameScene::Update() {
 		}
 	}
 
-	//自キャラの更新
-	player_->Update();
-
-	//敵の更新
-	enemy_->Update();
 
 	CheckAllCollisions();
 
-	railCamera_->Update();
+	skydome_->Update();
+
+
 }
 
 void GameScene::Draw() {
@@ -158,6 +172,10 @@ void GameScene::Draw() {
 	player_->Draw(viewProjection_);
 	//敵の描画
 	enemy_->Draw(viewProjection_);
+
+	//天球
+	skydome_->Draw(viewProjection_);
+
 	////3Dモデル
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
