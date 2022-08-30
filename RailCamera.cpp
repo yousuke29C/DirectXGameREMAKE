@@ -17,7 +17,7 @@ void RailCamera::Initialize(const Vector3& position, const Vector3& rotation)
 void RailCamera::Update()
 {
 	//移動
-	worldTransform_.translation_ += Vector3(0, 0, 0.01f);
+	worldTransform_.translation_ += Vector3(0.005f, 0, 0.005f);
 	//ワールドトランスフォームを更新
 	worldTransform_.matWorld_ = CreateMatIdentity();
 	worldTransform_.matWorld_ *= CreateMatScale(worldTransform_.scale_);
@@ -25,6 +25,7 @@ void RailCamera::Update()
 	worldTransform_.matWorld_ *= CreateMatRotationY(worldTransform_.rotation_);
 	worldTransform_.matWorld_ *= CreateMatRotationZ(worldTransform_.rotation_);
 	worldTransform_.matWorld_ *= CreateMatTranslation(worldTransform_.translation_);
+
 	//ワールド行列の平行移動成分
 	viewProjection_.eye.x = worldTransform_.matWorld_.m[3][0];
 	viewProjection_.eye.y = worldTransform_.matWorld_.m[3][1];

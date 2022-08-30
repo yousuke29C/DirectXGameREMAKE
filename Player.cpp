@@ -56,7 +56,16 @@ void Player::Update() {
     const float kMoveLimitX = 35;
     const float kMoveLimitY = 19;
 
-    
+    //キャラクター旋回処理
+    //押した方向で移動ベクトルを変更
+    const float kCharacterRootSpeed = 0.02f;
+
+    if (input_->PushKey(DIK_U)) {
+        worldTransform_.rotation_.y -= kCharacterRootSpeed;
+    }
+    else if (input_->PushKey(DIK_I)) {
+        worldTransform_.rotation_.y += kCharacterRootSpeed;
+    }
 
     // 範囲を超えない処理worldTrandform_.translation_値に制限をかける
     worldTransform_.translation_.x = max(worldTransform_.translation_.x, -kMoveLimitX);
@@ -76,17 +85,6 @@ void Player::Update() {
 
     worldTransform_.TransferMatrix();
 
-    //キャラクター旋回処理
-     //押した方向で移動ベクトルを変更
-    const float kCharacterRootSpeed = 0.02f;
-
-    if (input_->PushKey(DIK_U)) {
-        worldTransform_.rotation_.y -= kCharacterRootSpeed;
-    }
-    else if (input_->PushKey(DIK_I)) {
-        worldTransform_.rotation_.y += kCharacterRootSpeed;
-    }
-
     // キャラクター攻撃処理
     Attack();
 
@@ -96,7 +94,7 @@ void Player::Update() {
     }
 
     debugText_->SetPos(20, 50);
-    debugText_->Printf("Player:(%f,%f,%f)", worldTransform_.translation_.x, worldTransform_.translation_.y, worldTransform_.translation_.z);
+    debugText_->Printf("Player:(%f,%f,%f)", worldTransform_.matWorld_.m[3][0], worldTransform_.matWorld_.m[3][1], worldTransform_.matWorld_.m[3][2]);
 
 }
 

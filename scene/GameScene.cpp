@@ -105,6 +105,12 @@ void GameScene::Initialize() {
 void GameScene::Update() {
 	//デバックカメラの更新
 	/*debugCamera_->Update();*/
+	railCamera_->Update();
+
+	//railCameraをゲームシーンの方に適応する
+	viewProjection_.matView = railCamera_->GetViewProjection().matView;
+	viewProjection_.matProjection = railCamera_->GetViewProjection().matProjection;
+	viewProjection_.TransferMatrix();
 
 	//自キャラの更新
 	player_->Update();
@@ -112,12 +118,6 @@ void GameScene::Update() {
 	//敵の更新
 	enemy_->Update();
 
-	railCamera_->Update();
-
-	//railCameraをゲームシーンの方に適応する
-	viewProjection_.matView = debugCamera_->GetViewProjection().matView;
-	viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
-	viewProjection_.TransferMatrix();
 
 	//キャラクター移動処理
 	{
