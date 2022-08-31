@@ -56,10 +56,10 @@ void RailCamera::Update()
 
 	//デバッグ用表示
 	debugText_->SetPos(20, 100);
-	debugText_->Printf(
+	/*debugText_->Printf(
 		"RailCamera Pos:(%f,%f,%f)", viewProjection_.eye.x,
 		viewProjection_.eye.y,
-		viewProjection_.eye.z);
+		viewProjection_.eye.z);*/
 
 	if (input_->PushKey(DIK_O)) {
 		worldTransform_.rotation_.y -= 0.01f;

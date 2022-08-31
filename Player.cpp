@@ -94,7 +94,7 @@ void Player::Update() {
     }
 
     debugText_->SetPos(20, 50);
-    debugText_->Printf("Player:(%f,%f,%f)", worldTransform_.matWorld_.m[3][0], worldTransform_.matWorld_.m[3][1], worldTransform_.matWorld_.m[3][2]);
+    //debugText_->Printf("Player:(%f,%f,%f)", worldTransform_.matWorld_.m[3][0], worldTransform_.matWorld_.m[3][1], worldTransform_.matWorld_.m[3][2]);
 
     if (input_->TriggerKey(DIK_R)) {
         // “GƒLƒƒƒ‰‚ÌˆÊ’u
