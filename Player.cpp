@@ -96,6 +96,10 @@ void Player::Update() {
     debugText_->SetPos(20, 50);
     debugText_->Printf("Player:(%f,%f,%f)", worldTransform_.matWorld_.m[3][0], worldTransform_.matWorld_.m[3][1], worldTransform_.matWorld_.m[3][2]);
 
+    if (input_->TriggerKey(DIK_R)) {
+        // 敵キャラの位置
+        worldTransform_.translation_ = { 0,0,50 };
+    }
 }
 
 void Player::Draw(ViewProjection viewProjection_) {
@@ -117,7 +121,7 @@ void Player::Attack() {
         velocity = CreateVector(velocity, worldTransform_);
 
         // 自キャラの座標をコピー
-        Vector3 position = worldTransform_.translation_;
+        Vector3 position = GetWorldPosition();
 
         // 弾を生成し、初期化
         std::unique_ptr<PlayerBullet>newBullet = std::make_unique<PlayerBullet>();

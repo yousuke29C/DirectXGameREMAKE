@@ -68,6 +68,10 @@ void Enemy::Update() {
     for (std::unique_ptr<EnemyBullet>& bullet : bullets_) {
         bullet->Update();
     }
+    if (input_->TriggerKey(DIK_R)) {
+        // “GƒLƒƒƒ‰‚ÌˆÊ’u
+        worldTransform_.translation_ = { 0,0,40 };
+    }
 }
 
 void Enemy::Draw(ViewProjection viewProjection_) {

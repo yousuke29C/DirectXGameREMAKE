@@ -60,4 +60,15 @@ void RailCamera::Update()
 		"RailCamera Pos:(%f,%f,%f)", viewProjection_.eye.x,
 		viewProjection_.eye.y,
 		viewProjection_.eye.z);
+
+	if (input_->PushKey(DIK_O)) {
+		worldTransform_.rotation_.y -= 0.01f;
+	}
+	else if (input_->PushKey(DIK_P)) {
+		worldTransform_.rotation_.y += 0.01f;
+	}
+	if (input_->TriggerKey(DIK_R)) {
+		// “GƒLƒƒƒ‰‚ÌˆÊ’u
+		worldTransform_.translation_ = { 0,0,-50 };
+	}
 }
